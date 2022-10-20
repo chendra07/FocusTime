@@ -14,18 +14,11 @@ function formatTime(time) {
 export function Countdown({ minutes = 0.1, isPaused, onProgress, onEnd }) {
   const interval = useRef(null);
 
-  const [millis, setMillis] = useState(null);
+  const [millis, setMillis] = useState(6000);
 
-  function countDown() {
-    setMillis((prevTime) => {
-      if (prevTime === 0) {
-        clearInterval(interval.current);
-        onEnd();
-        return prevTime;
-      }
-      const timeLeft = prevTime - 1000;
-      return timeLeft;
-    });
+  function reset() {
+    console.log("running!");
+    setMillis(minutesToMillis(minutes));
   }
 
   useEffect(() => {
@@ -34,6 +27,11 @@ export function Countdown({ minutes = 0.1, isPaused, onProgress, onEnd }) {
 
   useEffect(() => {
     onProgress(millis / minutesToMillis(minutes));
+
+    //(4) using use Effect to manage time reset
+    if (millis === 0) {
+      reset();
+    }
   }, [millis]);
 
   useEffect(() => {
@@ -46,6 +44,20 @@ export function Countdown({ minutes = 0.1, isPaused, onProgress, onEnd }) {
 
     return () => clearInterval(interval.current);
   }, [isPaused]);
+
+  function countDown() {
+    setMillis((prevTime) => {
+      console.log("Prevtime: ", prevTime);
+      if (prevTime === 0) {
+        clearInterval(interval.current);
+        // (5) comment onEnd
+        // onEnd(reset);
+        return prevTime;
+      }
+      const timeLeft = prevTime - 1000;
+      return timeLeft;
+    });
+  }
 
   const minute = Math.floor(millis / 1000 / 60) % 60;
   const seconds = Math.floor(millis / 1000) % 60;
