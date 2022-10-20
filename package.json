@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "local": "expo start --localhost"
+    "local": "expo start --localhost",
+    "tunnel": "expo start --tunnel"
   },
   "dependencies": {
     "expo": "~46.0.16",

@@ -16,17 +16,17 @@ export function Countdown({ minutes = 0.1, isPaused, onProgress, onEnd }) {
 
   const [millis, setMillis] = useState(null);
 
-  const countDown = () => {
-    setMillis((time) => {
-      if (time === 0) {
+  function countDown() {
+    setMillis((prevTime) => {
+      if (prevTime === 0) {
         clearInterval(interval.current);
         onEnd();
-        return time;
+        return prevTime;
       }
-      const timeLeft = time - 1000;
+      const timeLeft = prevTime - 1000;
       return timeLeft;
     });
-  };
+  }
 
   useEffect(() => {
     setMillis(minutesToMillis(minutes));
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: fontSizes.xxxl,
     fontWeight: "bold",
-    color: colors.white,
+    color: colors.whiteSmoke,
     padding: spacing.lg,
     backgroundColor: "rgba(94, 132, 226, 0.3)",
   },

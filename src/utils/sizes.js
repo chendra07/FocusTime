@@ -15,3 +15,12 @@ export const spacing = {
   xxl: 40,
   xxxl: 80,
 };
+
+export const buttonSize = {
+  sm: 30,
+  md: 45,
+  lg: 60,
+  xl: 75,
+  xxl: 100,
+  xxxl: 125,
+};
